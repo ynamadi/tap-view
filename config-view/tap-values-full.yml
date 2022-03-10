@@ -95,6 +95,12 @@ cnrs:
   default_tls_secret: tanzu-system-ingress/tls
   domain_template: "{{.Name}}-{{.Namespace}}.{{.Domain}}"
 
+appliveview:
+  ingressDomain: #@ data.values.tap.domains.main
+  ingressEnabled: true
+  tls:
+    namespace: tanzu-system-ingress
+    secretName: tls
 #@ end
 ---
 apiVersion: v1
