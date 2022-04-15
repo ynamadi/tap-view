@@ -3,3 +3,5 @@ config-custom
 tap-install-secrets.yml
 tap-install-config.yml
 /.idea/
+gitops/tap-install-config.yml.tpl
+gitops/tap-install-secrets.yml.tpl

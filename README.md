@@ -25,7 +25,7 @@ Make sure [Cluster Essentials for VMware Tanzu is deployed to your cluster](http
 You don't need to use the `tanzu` CLI to apply the configuration with a GitOps approach:
 all `tanzu` commands described in the documentation have been integrated as YAML definitions.
 
-Create new file `tap-install-config.yml` in `gitops`, reusing content from [`tap-install-config.yml.tpl`](gitops/tap-install-config.yml.tpl).
+Create new file `tap-install-config.yml` in `gitops`, reusing content from [`tap-install-config.yml.tpl`](gitops/tap-install-config.yml).
 Edit this file accordingly:
 
 ```yaml
@@ -59,7 +59,7 @@ data:
   tap-config.yml: #@ yaml.encode(config())
 ```
 
-Do the same with [`tap-install-secrets.yml.tpl`](gitops/tap-install-secrets.yml.tpl)
+Do the same with [`tap-install-secrets.yml.tpl`](gitops/tap-install-secrets.yml)
 by creating `tap-install-secrets.yml`:
 
 ```yaml
