@@ -83,9 +83,6 @@ tap_gui:
       clusterLocatorMethods:
         - type: 'config'
           clusters: #@ data.values.tap.credentials.clusters
-metadata_store:
-  app_service_type: LoadBalancer
- 
 grype:
   namespace: #@ data.values.tap.devNamespace
   targetImagePullSecret: "tap-registry"
