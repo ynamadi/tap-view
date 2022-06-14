@@ -106,6 +106,16 @@ appliveview:
   tls:
     namespace: tanzu-system-ingress
     secretName: tls
+
+scanning:
+  metadataStore:
+    url: "https://metadata-store.y-compiles.com"
+    caSecret:
+      name: store-ca-cert
+      importFromNamespace: metadata-store
+    authSecret:
+      name: store-auth-token
+      importFromNamespace: metadata-store
 #@ end
 ---
 apiVersion: v1
