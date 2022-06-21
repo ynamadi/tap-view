@@ -5,3 +5,5 @@ tap-install-config.yml
 /.idea/
 gitops/tap-install-config.yml.tpl
 gitops/tap-install-secrets.yml.tpl
+/tanzu-cluster-essentials/
+/cluster-essentials.sh
