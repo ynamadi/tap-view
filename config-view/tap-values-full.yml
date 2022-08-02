@@ -14,13 +14,25 @@ buildservice:
   descriptor_name: "full"
   enable_automatic_dependency_updates: true
 
-supply_chain: basic
-ootb_supply_chain_basic:
+supply_chain: testing_scanning
+
+ootb_supply_chain_testing_scanning:
   registry:
     server: #@ data.values.tap.registry.host
     repository: #@ data.values.tap.registry.repositories.ootbSupplyChain
   gitops:
-    ssh_secret: ""
+    server_address: https://github.com/
+    ssh_secret: git-ssh
+    commit_strategy: pull_request
+    pull_request:
+      server_kind: github
+      pull_request_title: "Approval for Production deployment"
+      pull_request_body: "Please review the configuration and approve the deployment to production"
+      commit_branch: ""
+  scanning:
+    image:
+      template: snyk-private-image-scan-template
+      policy: snyk-scan-policy
 
 learningcenter:
   ingressDomain: #@ data.values.tap.domains.learningCenter
@@ -37,6 +49,14 @@ tap_gui:
     namespace: tanzu-system-ingress
     secretName: tls
   app_config:
+    proxy:
+      /metadata-store:
+        target: https://metadata-store-app.metadata-store:8443/api/v1
+        changeOrigin: true
+        secure: false
+        headers:
+          Authorization: #@ data.values.tap.credentials.metadataStore.accessToken
+          X-Custom-Source: project-star
     app:
       baseUrl: #@ "https://{}".format(data.values.tap.domains.tapGui)
     integrations:
@@ -85,7 +105,9 @@ tap_gui:
           clusters: #@ data.values.tap.credentials.clusters
 grype:
   namespace: #@ data.values.tap.devNamespace
-  targetImagePullSecret: "tap-registry"
+  targetImagePullSecret: "registry-credentials"
+  metadataStore:
+    url: "https://metadata-store.tanzu.y-compiles.com"
 
 contour:
   envoy:
@@ -105,9 +127,11 @@ appliveview:
     secretName: tls
 
 metadata_store:
+  ns_for_export_app_cert: "*"
   ingress_enabled: "true"
   ingress_domain: #@ data.values.tap.domains.main
-  app_service_type: ClusterIP
+  ingressSecret:
+    secretName: tls
 
 #@ end
 ---
