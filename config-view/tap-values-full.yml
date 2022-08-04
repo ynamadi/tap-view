@@ -71,6 +71,9 @@ tap_gui:
       #@ end
     supplyChain:
       enablePlugin: true
+      
+    learningcenter:
+      enablePlugin: true
     backend:
       baseUrl: #@ "https://{}".format(data.values.tap.domains.tapGui)
       cors:
