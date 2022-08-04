@@ -5,35 +5,12 @@
 #@ def config():
 profile: view
 ceip_policy_disclosed: true
-buildservice:
-  kp_default_repository: #@ "{}/{}".format(data.values.tap.registry.host, data.values.tap.registry.repositories.buildService)
-  kp_default_repository_username: #@ data.values.tap.credentials.registry.username
-  kp_default_repository_password: #@ data.values.tap.credentials.registry.password
-  tanzunet_username: #@ data.values.tap.credentials.tanzuNet.username
-  tanzunet_password: #@ data.values.tap.credentials.tanzuNet.password
-  descriptor_name: "full"
-  enable_automatic_dependency_updates: true
 
-supply_chain: testing_scanning
-
-ootb_supply_chain_testing_scanning:
-  registry:
-    server: #@ data.values.tap.registry.host
-    repository: #@ data.values.tap.registry.repositories.ootbSupplyChain
-  gitops:
-    server_address: https://github.com/
-    ssh_secret: git-ssh
-    commit_strategy: pull_request
-    pull_request:
-      server_kind: github
-      pull_request_title: "Approval for Production deployment"
-      pull_request_body: "Please review the configuration and approve the deployment to production"
-      commit_branch: ""
-  scanning:
-    image:
-      template: snyk-private-image-scan-template
-      policy: snyk-scan-policy
-
+contour:
+  envoy:
+    service:
+      type: LoadBalancer
+      
 learningcenter:
   ingressDomain: #@ data.values.tap.domains.learningCenter
   ingressSecret:
@@ -64,15 +41,9 @@ tap_gui:
         token: #@ data.values.tap.credentials.github.token
       #@ end
     catalog:
-      locations:
-      #@ for catalog in data.values.tap.catalogs:
-      - type: url
-        target: #@ catalog
+      locations: #@ data.values.tap.credentials.catalogs
       #@ end
     supplyChain:
-      enablePlugin: true
-
-    learningcenter:
       enablePlugin: true
     backend:
       baseUrl: #@ "https://{}".format(data.values.tap.domains.tapGui)
@@ -104,16 +75,7 @@ tap_gui:
       clusterLocatorMethods:
         - type: 'config'
           clusters: #@ data.values.tap.credentials.clusters
-grype:
-  namespace: #@ data.values.tap.devNamespace
-  targetImagePullSecret: "registry-credentials"
-  metadataStore:
-    url: "https://metadata-store.tanzu.y-compiles.com"
 
-contour:
-  envoy:
-    service:
-      type: LoadBalancer
 
 cnrs:
   domain_name: #@ data.values.tap.domains.knative
