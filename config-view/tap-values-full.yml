@@ -10,7 +10,7 @@ contour:
   envoy:
     service:
       type: LoadBalancer
-      
+
 learningcenter:
   ingressDomain: #@ data.values.tap.domains.learningCenter
   ingressSecret:
@@ -76,7 +76,6 @@ tap_gui:
         - type: 'config'
           clusters: #@ data.values.tap.credentials.clusters
 
-
 cnrs:
   domain_name: #@ data.values.tap.domains.knative
   default_tls_secret: tanzu-system-ingress/tls
@@ -95,7 +94,6 @@ metadata_store:
   ingress_domain: #@ data.values.tap.domains.main
   ingressSecret:
     secretName: tls
-
 #@ end
 ---
 apiVersion: v1
