@@ -9,9 +9,6 @@ buildservice:
   kp_default_repository: #@ "{}/{}".format(data.values.tap.registry.host, data.values.tap.registry.repositories.buildService)
   kp_default_repository_username: #@ data.values.tap.credentials.registry.username
   kp_default_repository_password: #@ data.values.tap.credentials.registry.password
-  tanzunet_username: #@ data.values.tap.credentials.tanzuNet.username
-  tanzunet_password: #@ data.values.tap.credentials.tanzuNet.password
-  descriptor_name: "full"
   enable_automatic_dependency_updates: true
 
 supply_chain: testing_scanning
@@ -38,12 +35,9 @@ learningcenter:
   ingressDomain: #@ data.values.tap.domains.learningCenter
   ingressSecret:
     secretName: tls
-    server:
-      service_type: ClusterIP
 
 tap_gui:
   service_type: ClusterIP
-  ingressEnabled: "true"
   ingressDomain: #@ data.values.tap.domains.main
   tls:
     namespace: tanzu-system-ingress
@@ -103,21 +97,11 @@ tap_gui:
       clusterLocatorMethods:
         - type: 'config'
           clusters: #@ data.values.tap.credentials.clusters
-grype:
-  namespace: #@ data.values.tap.devNamespace
-  targetImagePullSecret: "registry-credentials"
-  metadataStore:
-    url: "https://metadata-store.tanzu.y-compiles.com"
 
 contour:
   envoy:
     service:
       type: LoadBalancer
-
-cnrs:
-  domain_name: #@ data.values.tap.domains.knative
-  default_tls_secret: tanzu-system-ingress/tls
-  domain_template: "{{.Name}}-{{.Namespace}}.{{.Domain}}"
 
 appliveview:
   ingressDomain: #@ data.values.tap.domains.main
@@ -127,7 +111,7 @@ appliveview:
     secretName: tls
 
 metadata_store:
-  ns_for_export_app_cert: "*"
+  ns_for_export_app_cert: "tap-dev"
   ingress_enabled: "true"
   ingress_domain: #@ data.values.tap.domains.main
   ingressSecret:
