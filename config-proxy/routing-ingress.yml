@@ -81,7 +81,7 @@ apiVersion: projectcontour.io/v1
 kind: HTTPProxy
 metadata:
   name: learningcenter
-  namespace: learning-center-guided-ui
+  namespace: learningcenter
   annotations:
     kapp.k14s.io/change-rule: "upsert after upserting tap-install/tap"
 spec:
