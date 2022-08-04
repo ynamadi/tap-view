@@ -7,3 +7,5 @@ gitops/tap-install-config.yml.tpl
 gitops/tap-install-secrets.yml.tpl
 /tanzu-cluster-essentials/
 /cluster-essentials.sh
+/aks-cluster-setup.sh
+/commands.sh
