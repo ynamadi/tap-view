@@ -94,7 +94,6 @@ metadata_store:
   ingress_domain: #@ data.values.tap.domains.main
   ingressSecret:
     secretName: tls
-#@ end
 ---
 apiVersion: v1
 kind: Secret
