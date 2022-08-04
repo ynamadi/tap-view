@@ -40,6 +40,8 @@ learningcenter:
   ingressClass: contour
   ingressSecret:
     secretName: tls
+    server:
+      service_type: ClusterIP
 
 tap_gui:
   service_type: ClusterIP
