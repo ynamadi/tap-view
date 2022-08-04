@@ -36,8 +36,6 @@ ootb_supply_chain_testing_scanning:
 
 learningcenter:
   ingressDomain: #@ data.values.tap.domains.learningCenter
-  ingressSecret:
-    secretName: tls
 
 tap_gui:
   service_type: ClusterIP
@@ -71,7 +69,7 @@ tap_gui:
       #@ end
     supplyChain:
       enablePlugin: true
-      
+
     learningcenter:
       enablePlugin: true
     backend:
