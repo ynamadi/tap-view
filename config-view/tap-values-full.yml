@@ -35,6 +35,7 @@ ootb_supply_chain_testing_scanning:
       policy: snyk-scan-policy
 
 learningcenter:
+  namespace: learningcenter
   ingressDomain: #@ data.values.tap.domains.learningCenter
   ingressClass: contour
   ingressSecret:
