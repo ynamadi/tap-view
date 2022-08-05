@@ -14,7 +14,7 @@ data: #@ data.values.tap.credentials.certificate
 kind: Secret
 metadata:
   name: tls
-  namespace: #@ data.values.tls.namespace
+  namespace: tanzu-system-ingress
 type: kubernetes.io/tls
 ---
 apiVersion: projectcontour.io/v1
