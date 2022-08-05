@@ -29,6 +29,8 @@ spec:
     - secretName: #@ data.values.tls.secretName
       targetNamespaces:
         - "*"
+
+---
 apiVersion: projectcontour.io/v1
 kind: HTTPProxy
 metadata:
