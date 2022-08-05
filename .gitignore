@@ -2,6 +2,8 @@
 config-custom
 tap-install-secrets.yml
 tap-install-config.yml
+base64letsencryptcert.txt
+base64letsencryptkey.txt
 /.idea/
 gitops/tap-install-config.yml.tpl
 gitops/tap-install-secrets.yml.tpl
