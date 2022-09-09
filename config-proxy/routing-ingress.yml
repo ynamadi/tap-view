@@ -7,13 +7,13 @@ metadata:
   name: y-compiles.com
   namespace: tanzu-system-ingress
 spec:
-  commonName: '*.tanzu.y-compiles.com'
+  commonName: '*.tap.tanzu.y-compiles.com'
   secretName: tls
   issuerRef:
     name: letsencrypt-http01-issuer
     kind: ClusterIssuer
   dnsNames:
-  - '*.tanzu.y-compiles.com'
+  - '*.tap.tanzu.y-compiles.com'
 ---
 apiVersion: projectcontour.io/v1
 kind: TLSCertificateDelegation
