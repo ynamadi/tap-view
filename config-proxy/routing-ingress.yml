@@ -14,6 +14,7 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - '*.tap.tanzu.y-compiles.com'
+  - 'registry.y-compiles.com'
 ---
 apiVersion: projectcontour.io/v1
 kind: TLSCertificateDelegation
