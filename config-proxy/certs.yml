@@ -26,6 +26,6 @@ apiVersion: secretgen.carvel.dev/v1alpha1
 kind: SecretImport
 metadata:
   name: tls
-  namespace: tanzu-system-ingress
+  namespace: learningcenter
 spec:
-  toNamespace: learningcenter
+  fromNamespace: tanzu-system-ingress
