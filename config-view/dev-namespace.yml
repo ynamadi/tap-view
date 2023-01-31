@@ -29,6 +29,7 @@ metadata:
 type: kubernetes.io/dockerconfigjson
 stringData:
   .dockerconfigjson: #@ json.encode(config())
+---
 apiVersion: v1
 kind: Secret
 metadata:
