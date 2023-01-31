@@ -8,6 +8,7 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: #@ data.values.tap.devNamespace
+
 ---
 #@ def config():
 #@  return {
@@ -28,6 +29,62 @@ metadata:
 type: kubernetes.io/dockerconfigjson
 stringData:
   .dockerconfigjson: #@ json.encode(config())
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: cosign-key-pair
+  namespace: #@ data.values.tap.devNamespace
+type: Opaque
+data:
+  cosign.key: #@ data.values.tap.credentials.cosign.cosign_key
+  cosign.password: #@ data.values.tap.credentials.cosign.cosign_password
+  cosign.pub: #@ data.values.tap.credentials.cosign.cosign_pub
+immutable: true
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: snyk-token-secret
+  namespace: #@ data.values.tap.devNamespace
+data:
+  snyk_token: #@ data.values.tap.credentials.snyk.token
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: carbonblack-token-secret
+  namespace: #@ data.values.tap.devNamespace
+stringData:
+  cbc_api_id: #@ data.values.tap.credentials.carbon_black_scanner.cbc_api_id
+  cbc_api_key: #@ data.values.tap.credentials.carbon_black_scanner.cbc_api_key
+  cbc_org_key: #@ data.values.tap.credentials.carbon_black_scanner.cbc_org_key
+  cbc_saas_url: #@ data.values.tap.credentials.carbon_black_scanner.cbc_saas_url
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: git-ssh
+  namespace: #@ data.values.tap.devNamespace
+  annotations:
+    tekton.dev/git-0: https://github.com
+type: kubernetes.io/basic-auth
+stringData:
+  username: #@ data.values.tap.credentials.github.username
+  password: #@ data.values.tap.credentials.github.token
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: azure-devops-ssh
+  namespace: #@ data.values.tap.devNamespace
+  annotations:
+    tekton.dev/git-0: https://ynamadi@dev.azure.com
+type: kubernetes.io/basic-auth
+stringData:
+  username: #@ data.values.tap.credentials.azure_devops.username
+  password: #@ data.values.tap.credentials.azure_devops.access_token
 ---
 apiVersion: v1
 kind: Secret
@@ -47,9 +104,11 @@ metadata:
   namespace: #@ data.values.tap.devNamespace
 secrets:
   - name: registry-credentials
+  - name: git-ssh
+  - name: cosign-key-pair
 imagePullSecrets:
-  - name: registry-credentials
-  - name: tap-registry
+- name: tap-registry
+- name: registry-credentials
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
@@ -99,6 +158,9 @@ rules:
 - apiGroups: [scanning.apps.tanzu.vmware.com]
   resources: ['imagescans', 'sourcescans']
   verbs: ['*']
+- apiGroups: [apis.apps.tanzu.vmware.com]
+  resources: ['apidescriptors']
+  verbs: ['*']
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
@@ -112,11 +174,13 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: default
+
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: default-permit-deliverable
+  namespace: #@ data.values.tap.devNamespace
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -129,6 +193,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: default-permit-workload
+  namespace: #@ data.values.tap.devNamespace
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -136,4 +201,15 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: default
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: service-binding-postgres
+  labels:
+    servicebinding.io/controller: "true"
+rules:
+  - apiGroups: ["sql.tanzu.vmware.com"]
+    resources: ["postgres"]
+    verbs: ["get", "list", "watch"]
 #@ end
