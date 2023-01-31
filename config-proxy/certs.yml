@@ -13,3 +13,9 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - '*.tap.tanzu.y-compiles.com'
+  secretTemplate:
+    annotations:
+      reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
+      reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: "learningcenter"
+      reflector.v1.k8s.emberstack.com/reflection-auto-enabled: "true"
+      reflector.v1.k8s.emberstack.com/reflection-auto-namespaces: "learningcenter"
