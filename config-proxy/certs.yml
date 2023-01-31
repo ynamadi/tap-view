@@ -20,4 +20,4 @@ metadata:
   name: tls
   namespace: tanzu-system-ingress
 spec:
-  toNamespaces: learningcenter
+  toNamespace: learningcenter
