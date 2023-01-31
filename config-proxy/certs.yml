@@ -21,3 +21,11 @@ metadata:
   namespace: tanzu-system-ingress
 spec:
   toNamespace: learningcenter
+---
+apiVersion: secretgen.carvel.dev/v1alpha1
+kind: SecretImport
+metadata:
+  name: tls
+  namespace: tanzu-system-ingress
+spec:
+  toNamespace: learningcenter
