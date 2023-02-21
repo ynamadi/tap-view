@@ -6,15 +6,14 @@
 profile: view
 ceip_policy_disclosed: true
 
+shared:
+  ingress_domain: #@ data.values.tap.domains.main
+  kubernetes_version: "1.25"
+
 contour:
   envoy:
     service:
       type: LoadBalancer
-
-learningcenter:
-  ingressDomain: #@ data.values.tap.domains.learningCenter
-  ingressSecret:
-    secretName: tls
 
 tap_gui:
   service_type: ClusterIP
@@ -26,7 +25,7 @@ tap_gui:
   app_config:
     proxy:
       /metadata-store:
-        target: https://metadata-store-app.metadata-store:8443/api/v1
+        target: #@ data.values.tap.credentials.metadataStore.target
         changeOrigin: true
         secure: false
         headers:
@@ -34,6 +33,17 @@ tap_gui:
           X-Custom-Source: project-star
     app:
       baseUrl: #@ "https://{}".format(data.values.tap.domains.tapGui)
+    techdocs:
+      builder: 'external'
+      publisher:
+        type: 'awsS3'
+        awsS3:
+          bucketName: #@ data.values.tap.credentials.aws_s3.bucketName
+          credentials:
+            accessKeyId: #@ data.values.tap.credentials.aws_s3.accessKeyId
+            secretAccessKey: #@ data.values.tap.credentials.aws_s3.secretAccessKey
+          region: #@ data.values.tap.credentials.aws_s3.region
+          s3ForcePathStyle: false
     integrations:
       #@ if "github" in data.values.tap.credentials and "token" in data.values.tap.credentials.github:
       github:
@@ -75,24 +85,15 @@ tap_gui:
         - type: 'config'
           clusters: #@ data.values.tap.credentials.clusters
 
-cnrs:
-  domain_name: #@ data.values.tap.domains.knative
-  default_tls_secret: tanzu-system-ingress/tls
-  domain_template: "{{.Name}}-{{.Namespace}}.{{.Domain}}"
 
-appliveview:
-  ingressDomain: #@ data.values.tap.domains.main
-  ingressEnabled: true
-  tls:
-    namespace: tanzu-system-ingress
-    secretName: tls
-
-metadata_store:
-  ns_for_export_app_cert: "*"
-  ingress_enabled: "true"
-  ingress_domain: #@ data.values.tap.domains.main
+learningcenter:
+  ingressDomain: #@ data.values.tap.domains.learningCenter
   ingressSecret:
     secretName: tls
+
+appliveview:
+  ingressEnabled: true
+
 #@ end
 ---
 apiVersion: v1

@@ -1,8 +1,8 @@
 #! /bin/bash
-export AKS_RESOURCE_GROUP="tap-view-rg"
-export AKS_CLUSTER_NAME="tap-view"
+export AKS_RESOURCE_GROUP="tap-gui-rg"
+export AKS_CLUSTER_NAME="tap-gui"
 export AKS_CLUSTER_LOCATION="eastus2"
-export AKS_CLUSTER_VERSION="1.24.6"
+export AKS_CLUSTER_VERSION="1.25.5"
 
 az group create -l ${AKS_CLUSTER_LOCATION} -n ${AKS_RESOURCE_GROUP}
 

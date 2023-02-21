@@ -6,14 +6,16 @@ metadata:
   name: y-compiles.com
   namespace: tanzu-system-ingress
 spec:
-  commonName: '*.tap.tanzu.y-compiles.com'
   secretName: tls
+  privateKey:
+      rotationPolicy: Always
   issuerRef:
     name: letsencrypt-http01-issuer
     kind: ClusterIssuer
   dnsNames:
-  - '*.tap.tanzu.y-compiles.com'
-  - '*.learningcenter.tap.tanzu.y-compiles.com'
+  - 'tap-gui.tap.tanzu.y-compiles.com'
+  - 'metadata-store.tap.tanzu.y-compiles.com'
+  - 'learning-center-guided.learningcenter.tap.tanzu.y-compiles.com'
 ---
 apiVersion: secretgen.carvel.dev/v1alpha1
 kind: SecretExport

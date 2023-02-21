@@ -4,13 +4,8 @@
 ---
 tap:
   devNamespace: tap-dev
-
   domains:
     learningCenter: learningcenter.tap.tanzu.y-compiles.com
-    knative: apps.tap.tanzu.y-compiles.com
-    appliveview:
-          host: appliveview.tap.tanzu.y-compiles.com
-          port: 443
 
 domain: tanzu.y-compiles.com
 tls:
