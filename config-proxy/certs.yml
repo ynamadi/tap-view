@@ -15,7 +15,7 @@ spec:
   dnsNames:
   - 'tap-gui.tap.tanzu.y-compiles.com'
   - 'metadata-store.tap.tanzu.y-compiles.com'
-  - 'learning-center-guided.learningcenter.tap.tanzu.y-compiles.com'
+  - '*.learningcenter.tap.tanzu.y-compiles.com'
 ---
 apiVersion: secretgen.carvel.dev/v1alpha1
 kind: SecretExport
