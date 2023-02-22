@@ -8,7 +8,7 @@ ceip_policy_disclosed: true
 
 shared:
   ingress_domain: #@ data.values.tap.domains.main
-  kubernetes_version: "1.25"
+  kubernetes_version: "1.25.5"
 
 contour:
   envoy:
