@@ -8,5 +8,6 @@ gitops/tap-install-secrets.yml.tpl
 /tanzu-cluster-essentials/
 /cluster-essentials.sh
 /aks-cluster-setup.sh
-/commands.sh
+/training-portal-connect.sh
 /azure-dns-setup.sh
+/insight-ca.crt
