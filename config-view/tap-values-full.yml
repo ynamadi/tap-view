@@ -92,7 +92,11 @@ learningcenter:
     secretName: tls
 
 appliveview:
+  ingressDomain: #@ data.values.tap.domains.appLiveView
   ingressEnabled: true
+  tls:
+    secretName: tls
+    namespace: tanzu-system-ingress
 
 #@ end
 ---
