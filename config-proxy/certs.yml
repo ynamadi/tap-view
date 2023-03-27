@@ -3,6 +3,33 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
+  name: app-live-view-cert
+  namespace: tanzu-system-ingress
+spec:
+  subject:
+    countries:
+    - US
+    provinces:
+    - California
+    localities:
+    - San Fransisco
+    organizations:
+    - vmware
+    organizationalUnits:
+    - vmware mambg
+  secretName: app-live-view-tls
+  isCA: false
+  dnsNames:
+  - appliveview.tap.tanzu.y-compiles.com
+  issuerRef:
+    name: letsencrypt-http01-issuer
+    kind: ClusterIssuer
+    group: cert-manager.io
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
   name: y-compiles.com
   namespace: tanzu-system-ingress
 spec:
@@ -13,7 +40,8 @@ spec:
     name: letsencrypt-http01-issuer
     kind: ClusterIssuer
   dnsNames:
-  - '*.tap.tanzu.y-compiles.com'
+  - 'tap-gui.tap.tanzu.y-compiles.com'
+  - 'metadata-store.tap.tanzu.y-compiles.com'
   - '*.learningcenter.tap.tanzu.y-compiles.com'
 ---
 apiVersion: secretgen.carvel.dev/v1alpha1
