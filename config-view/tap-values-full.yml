@@ -95,6 +95,7 @@ appliveview:
   ingressDomain: #@ data.values.tap.domains.base
   ingressEnabled: true
   tls:
+    enabled: true
     secretName: tls
     namespace: tanzu-system-ingress
 
