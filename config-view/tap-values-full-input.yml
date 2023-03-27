@@ -5,7 +5,7 @@
 tap:
   devNamespace: tap-dev
   domains:
-    appLiveView: appliveview.tap.tanzu.y-compiles.com
+    base: tap.tanzu.y-compiles.com
     learningCenter: learningcenter.tap.tanzu.y-compiles.com
 
 domain: tanzu.y-compiles.com

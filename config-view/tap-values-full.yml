@@ -92,7 +92,7 @@ learningcenter:
     secretName: tls
 
 appliveview:
-  ingressDomain: #@ data.values.tap.domains.appLiveView
+  ingressDomain: #@ data.values.tap.domains.base
   ingressEnabled: true
   tls:
     secretName: tls
