@@ -10,7 +10,7 @@ metadata:
     kapp.k14s.io/change-rule: "upsert after upserting tap-install/tap"
 spec:
   delegations:
-    - secretName: app-live-view-tls
+    - secretName: tls
       targetNamespaces:
       - "*"
 ---

@@ -96,7 +96,7 @@ appliveview:
   ingressEnabled: true
   tls:
     enabled: true
-    secretName: app-live-view-tls
+    secretName: tls
     namespace: tanzu-system-ingress
 
 #@ end
