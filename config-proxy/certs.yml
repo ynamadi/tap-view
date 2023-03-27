@@ -13,6 +13,7 @@ spec:
     name: letsencrypt-http01-issuer
     kind: ClusterIssuer
   dnsNames:
+  - 'appliveview.tap.tanzu.y-compiles.com'
   - 'tap-gui.tap.tanzu.y-compiles.com'
   - 'metadata-store.tap.tanzu.y-compiles.com'
   - '*.learningcenter.tap.tanzu.y-compiles.com'
