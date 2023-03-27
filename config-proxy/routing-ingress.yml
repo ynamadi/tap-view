@@ -4,6 +4,19 @@
 apiVersion: projectcontour.io/v1
 kind: TLSCertificateDelegation
 metadata:
+  name: app-live-view-cert-delegation
+  namespace: #@ data.values.tls.namespace
+  annotations:
+    kapp.k14s.io/change-rule: "upsert after upserting tap-install/tap"
+spec:
+  delegations:
+    - secretName: app-live-view-tls
+      targetNamespaces:
+      - "*"
+---
+apiVersion: projectcontour.io/v1
+kind: TLSCertificateDelegation
+metadata:
   name: contour-delegation
   namespace: #@ data.values.tls.namespace
   annotations:
